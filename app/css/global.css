@@ -15,3 +15,11 @@
     background-color: rgb(192, 192, 192);    /* color of the scroll thumb */
     /* creates padding around scroll thumb */
   }
+
+  .todo-wrapper-parent, .edit-task-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    flex-direction: column;
+  }

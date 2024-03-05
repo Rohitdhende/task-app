@@ -1,4 +1,4 @@
-import { useState, ChangeEvent , useEffect} from "react";
+import { useState, ChangeEvent, useEffect } from "react";
 import "../css/Todo.css";
 import { useSelector } from "react-redux";
 import { NotesState } from "../globalRedux/reducers/reducer";
@@ -10,19 +10,24 @@ import BasicDatePicker from "./DatePick";
 import { Box, CircularProgress, IconButton, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { Dayjs } from "dayjs";
-import { getData, isDocExist } from "../commonFunctions";
-
 
 interface NewNoteProps {
   addNote(note: string): void;
   handleClose: () => void;
   date: Dayjs | null;
   setDate(date: Dayjs | null): void;
-  isLoading:boolean;
-  isDocumentExist:boolean
+  isLoading: boolean;
+  isDocumentExist: boolean;
 }
 
-const Todo = ({ addNote, handleClose, date, setDate,isLoading,isDocumentExist }: NewNoteProps) => {
+const Todo = ({
+  addNote,
+  handleClose,
+  date,
+  setDate,
+  isLoading,
+  isDocumentExist,
+}: NewNoteProps) => {
   const [note, setNote] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [error, setError] = useState(false);
@@ -49,8 +54,7 @@ const Todo = ({ addNote, handleClose, date, setDate,isLoading,isDocumentExist }:
     }
   };
 
-
-  console.log("isDocumentExist",isLoading)
+  console.log("isDocumentExist", isLoading);
 
   return (
     <Container
@@ -86,46 +90,57 @@ const Todo = ({ addNote, handleClose, date, setDate,isLoading,isDocumentExist }:
         date={date}
         setDate={(newValue: Dayjs | null) => setDate(newValue)}
       />
-      {isLoading ? <CircularProgress color="inherit" /> : isDocumentExist && <Typography>Task for this date is already exist, please search with the date and edit it!</Typography>}
-
-    {!isDocumentExist && !isLoading  && <Box
-        display="flex"
-        flexDirection="row"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <TextField
-          error={error}
-          sx={{
-            width: {
-              xl: "300px",
-              lg: "300px",
-              md: "300px",
-              sm: "300px",
-              xs: "100%",
-            },
-          }}
-          id="standard-input-note"
-          label="Add Note"
-          variant="standard"
-          name={note}
-          value={note}
-          helperText={error ? errorMessage : ""}
-          onChange={updateNote}
-          onBlur={(e) => {
-            if (e.target.value === "" || e.target.value) {
-              setError(false);
-            }
-          }}
-          color="success"
-          onKeyPress={(e) => e.key === "Enter" && onAddNoteClick()}
-        />
-        <AddCircleIcon
-          color="success"
-          sx={{ fontSize: "1.5rem", cursor: "pointer" }}
-          onClick={onAddNoteClick}
-        />
-      </Box>}
+      {isLoading ? (
+        <CircularProgress color="success" />
+      ) : (
+        isDocumentExist && (
+          <Typography textAlign="center" color="green">
+            Task for this date is already exist, please search with the date and
+            edit it!
+          </Typography>
+        )
+      )}
+      {!isDocumentExist && !isLoading && (
+        <Box
+          display="flex"
+          flexDirection="row"
+          justifyContent="center"
+          alignItems="center"
+          gap={1}
+        >
+          <TextField
+            error={error}
+            sx={{
+              width: {
+                xl: "300px",
+                lg: "300px",
+                md: "300px",
+                sm: "300px",
+                xs: "100%",
+              },
+            }}
+            id="standard-input-note"
+            label="Add Note"
+            variant="standard"
+            name={note}
+            value={note}
+            helperText={error ? errorMessage : ""}
+            onChange={updateNote}
+            onBlur={(e) => {
+              if (e.target.value === "" || e.target.value) {
+                setError(false);
+              }
+            }}
+            color="success"
+            onKeyPress={(e) => e.key === "Enter" && onAddNoteClick()}
+          />
+          <AddCircleIcon
+            color="success"
+            sx={{ fontSize: "1.5rem", cursor: "pointer" }}
+            onClick={onAddNoteClick}
+          />
+        </Box>
+      )}
     </Container>
   );
 };

@@ -2,21 +2,26 @@ import { doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "./firebase";
 
 export const addData = async (date: any, notes: any) => {
-  let d = date?.get("D")?.toString();
-  let m = date?.get("M")?.toString();
-  let y = date?.get("year")?.toString();
+  try {
+    
+    await setDoc(doc(db, "sd", date), {
+      tasks: notes,
+    });
+    return { message: "success" };
+  } catch (error) {
+    return { message: "fail" };
+  }
 
-  await setDoc(doc(db, "sd", d + "-" + m + "-" + y), {
-    tasks: notes,
-  });
 };
 
 export const isDocExist = async (date: any) => {
-  let d = date?.get("D")?.toString();
-  let m = date?.get("M")?.toString();
-  let y = date?.get("year")?.toString();
+  // let d = date?.get("D")?.toString();
+  // let m = date?.get("M");
+  // let y = date?.get("year")?.toString();
 
-  const docRef = doc(db, "sd", d + "-" + m + "-" + y);
+  // console.log("month", m);
+
+  const docRef = doc(db, "sd", date);
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
@@ -28,11 +33,9 @@ export const isDocExist = async (date: any) => {
 };
 
 export const getData = async (date: any) => {
-  let d = date?.get("D")?.toString();
-  let m = date?.get("M")?.toString();
-  let y = date?.get("year")?.toString();
 
-  const docRef = doc(db, "sd", d + "-" + m + "-" + y);
+  console.log("cur",date)
+  const docRef = doc(db, "sd", date);
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {

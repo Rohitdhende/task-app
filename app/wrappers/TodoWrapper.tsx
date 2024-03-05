@@ -1,14 +1,15 @@
 "use client";
 import { useDispatch } from "react-redux";
-import Todo from "./Todo";
-import TodoList from "./TodoList";
+import Todo from "../components/Todo";
+import TodoList from "../components/TodoList";
 import "../css/TodoWrapper.css";
-import { Box, Button, IconButton, Typography } from "@mui/material";
+import { Alert, Box, Button, IconButton, Snackbar, Typography } from "@mui/material";
 import { addData, getData, isDocExist } from "../commonFunctions";
 import { useSelector } from "react-redux";
 import { NotesState } from "../globalRedux/reducers/reducer";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import dayjs, { Dayjs } from "dayjs";
+import CustomSnackbar from "../components/CustomSnackbar";
 
 type TodoWrapperProps = {
   handleClose: () => void;
@@ -40,9 +41,16 @@ const TodoWrapper = ({ handleClose }: TodoWrapperProps) => {
 
   const [date, setDate] = useState<Dayjs | null>(dayjs());
 
-  const handleSave = () => {
+  const formattedDate = date?.format("DD-MM-YYYY");
+
+const [snackbarMessage,setSnackbarMessage] = useState('')
+const [isSnackbarOpen,setSnackbarOpen] = useState(false)
+
+  const handleSave = async() => {
     if (notes.length > 0) {
-      addData(date, notes);
+      const res = await addData(formattedDate, notes);
+      setSnackbarMessage(res?.message)
+      setSnackbarOpen(true)
     }
   };
 
@@ -52,18 +60,19 @@ const TodoWrapper = ({ handleClose }: TodoWrapperProps) => {
   useEffect(() => {
     async function docExist() {
       setIsLoading(true);
-      let response = await isDocExist(date);
-      let getD = await getData(date);
+      let response = await isDocExist(formattedDate);
+      let getD = await getData(formattedDate);
       setTaskExist(response);
       setIsLoading(false);
       console.log("rr", getD);
     }
 
     docExist();
-  }, [date]);
+  }, [formattedDate]);
 
   return (
     <Box className="todo-wrapper-parent">
+      {isSnackbarOpen && <CustomSnackbar isOpen={isSnackbarOpen} message={snackbarMessage} handleSnackbarClose={()=>setSnackbarOpen(false)}/>}
       <Todo
         addNote={addNote}
         handleClose={handleClose}

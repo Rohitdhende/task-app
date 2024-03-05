@@ -28,9 +28,10 @@ import {
 interface NewNoteProps {
   updateNote(note: string, updatedNote: string): void;
   deleteNote: Function;
+  data?:any
 }
 
-const TodoList = ({ deleteNote, updateNote }: NewNoteProps) => {
+const TodoList = ({ deleteNote, updateNote,data }: NewNoteProps) => {
   const notes = useSelector<NotesState, NotesState["notes"]>((state) => {
     return state.notes;
   });

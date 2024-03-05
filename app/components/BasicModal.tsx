@@ -1,13 +1,12 @@
 import * as React from "react";
 import Modal from "@mui/material/Modal";
-import TodoWrapper from "./TodoWrapper";
+import TodoWrapper from "../wrappers/TodoWrapper";
 import { Box } from "@mui/material";
 
 type ModalProps = {
   open: boolean;
   handleClose: () => void;
 };
-
 
 export default function BasicModal({ open, handleClose }: ModalProps) {
   return (
@@ -17,10 +16,8 @@ export default function BasicModal({ open, handleClose }: ModalProps) {
       aria-describedby="modal-modal-description"
     >
       <Box>
-      <TodoWrapper handleClose={handleClose} />
+        <TodoWrapper handleClose={handleClose} />
       </Box>
-
-
     </Modal>
   );
 }

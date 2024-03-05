@@ -19,11 +19,11 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { mainListItems } from "../listItems";
-import Chart from "../components/Chart";
 
 import { Button } from "@mui/material";
 import BasicModal from "../components/BasicModal";
 import { useDispatch } from "react-redux";
+import DashboardPanel from "../wrappers/DashboardWrapper";
 
 
 const drawerWidth: number = 240;
@@ -33,7 +33,7 @@ interface AppBarProps extends MuiAppBarProps {
 }
 
 export default function Dashboard() {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
 
   const toggleDrawer = () => {
@@ -101,7 +101,7 @@ export default function Dashboard() {
         <BasicModal open={openModal} handleClose={handleClose} />
         <Box sx={{ display: "flex" }}>
           <CssBaseline />
-          <AppBar position="absolute" open={open}>
+          <AppBar position="absolute" open={open} color="success" >
             <Toolbar
               sx={{
                 pr: "24px", // keep right padding when drawer closed
@@ -179,11 +179,10 @@ export default function Dashboard() {
                 gap: 2,
               }}
             >
-              <Button variant="outlined" onClick={handleOpen}>
+              <Button variant="outlined" onClick={handleOpen} color="success">
                 Add Task
               </Button>
               <Grid container spacing={3}>
-                {/* Chart */}
 
                 <Grid item xs={12}>
                   <Paper
@@ -193,7 +192,7 @@ export default function Dashboard() {
                       flexDirection: "column",
                     }}
                   >
-                    <Chart />
+                    <DashboardPanel/>
                   </Paper>
                 </Grid>
               </Grid>
