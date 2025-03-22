@@ -91,16 +91,13 @@ export default function EditTaskModal({
           </IconButton>
         </Box>
 
-        {/* <List dense={true} sx={{ width: "100%" }}>
+        <List dense={true} sx={{ width: "100%" }}>
           {data?.tasks?.map((task: string, index: number) => (
             <ListItem key={index} sx={{ height: "100%", display: "flex" }}>
-              <ListItemIcon sx={{ minWidth: "fit-content", mr: "0.5rem" }}>
-                <RadioButtonCheckedIcon fontSize="inherit" />
-              </ListItemIcon>
               <ListItemText primary={task} />
             </ListItem>
           ))}
-        </List> */}
+        </List>
         <Box marginTop="1rem">
           <TodoList
             deleteNote={deleteNote}

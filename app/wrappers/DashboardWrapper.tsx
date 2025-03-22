@@ -94,7 +94,7 @@ export default function DashboardPanel() {
         />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        Tasks By Date Range
+        Coming soon...
       </CustomTabPanel>
     </Box>
   );

@@ -43,7 +43,7 @@ const FetchTask: React.FC<Props> = ({ date, setDate, isLoading, data }) => {
       const res = await addData(formattedDate, notes);
       setSnackbarMessage(res?.message);
       setSnackbarOpen(true);
-      setEditModal(false)
+      setEditModal(false);
     }
   };
 
@@ -78,7 +78,10 @@ const FetchTask: React.FC<Props> = ({ date, setDate, isLoading, data }) => {
           <Typography variant="subtitle1" ml="1rem">
             Task Details
           </Typography>
-          <IconButton onClick={() => setEditModal(true)}>
+          <IconButton
+            onClick={() => setEditModal(true)}
+            disabled={data?.tasks.length === 0}
+          >
             <EditIcon sx={{ fontSize: "1rem" }} />
           </IconButton>
         </Box>
